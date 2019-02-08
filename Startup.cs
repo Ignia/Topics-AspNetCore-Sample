@@ -103,6 +103,13 @@ namespace OnTopicTest {
       \-----------------------------------------------------------------------------------------------------------------------*/
       app.UseMvc(routes => {
 
+        //OnTopic route
+        routes.MapRoute(
+          name: "WebTopics",
+          template: "Web/{*path}",
+          defaults: new { controller = "Topic", action = "Index", id = (int?)null, rootTopic = "Web" }
+        );
+
         //Default
         routes.MapRoute(
           name: "default",
