@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Ignia.Topics.AspNetCore.Mvc;
 
 namespace OnTopicTest {
 
@@ -66,7 +67,13 @@ namespace OnTopicTest {
       /*------------------------------------------------------------------------------------------------------------------------
       | Configure: MVC
       \-----------------------------------------------------------------------------------------------------------------------*/
-      services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+      services.AddMvc()
+
+        //Set to use .NET Core 2.2
+        .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+
+        //Add OnTopic support
+        .AddTopicSupport();
 
     }
 
