@@ -7,6 +7,11 @@
 
 
   <ItemGroup>
+    <PackageReference Include="Ignia.Topics" Version="3.8.0-dotnetstandard0001" />
+    <PackageReference Include="Ignia.Topics.AspNetCore.Mvc" Version="3.8.0-dotnetstandard0001" />
+    <PackageReference Include="Ignia.Topics.Data.Caching" Version="3.8.0-dotnetstandard0001" />
+    <PackageReference Include="Ignia.Topics.Data.Sql" Version="3.8.0-dotnetstandard0001" />
+    <PackageReference Include="Ignia.Topics.ViewModels" Version="3.8.0-dotnetstandard0001" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
