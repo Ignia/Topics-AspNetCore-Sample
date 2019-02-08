@@ -1,7 +1,7 @@
 ﻿/*==============================================================================================================================
 | Author        Ignia, LLC
-| Client        GoldSim
-| Project       Website
+| Client        Ignia, LLC
+| Project       Sample OnTopic Site
 \=============================================================================================================================*/
 using System;
 using System.Collections.Generic;
@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Ignia.Topics.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Controllers;
 
 namespace OnTopicTest {
 
@@ -74,6 +75,11 @@ namespace OnTopicTest {
 
         //Add OnTopic support
         .AddTopicSupport();
+
+      /*------------------------------------------------------------------------------------------------------------------------
+      | Register: Controller Activator
+      \-----------------------------------------------------------------------------------------------------------------------*/
+      services.AddSingleton<IControllerActivator>(new SampleControllerActivator());
 
     }
 
