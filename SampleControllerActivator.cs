@@ -5,6 +5,8 @@
 \=============================================================================================================================*/
 using System;
 using Ignia.Topics;
+using Ignia.Topics.AspNetCore.Mvc;
+using Ignia.Topics.AspNetCore.Mvc.Controllers;
 using Ignia.Topics.Data.Caching;
 using Ignia.Topics.Data.Sql;
 using Ignia.Topics.Mapping;
@@ -80,6 +82,9 @@ namespace OnTopicTest {
       if (type == typeof(HomeController)) {
         return CreateHomeController();
       }
+      else if (type == typeof(TopicController)) {
+        return CreateTopicController(context);
+      }
       else {
         throw new Exception($"Unknown controller {type.Name}");
       }
@@ -98,6 +103,30 @@ namespace OnTopicTest {
       | Return HomeController
       \-----------------------------------------------------------------------------------------------------------------------*/
       return new HomeController();
+
+    }
+
+    /*==========================================================================================================================
+    | METHOD: CREATE TOPIC CONTROLLER
+    \-------------------------------------------------------------------------------------------------------------------------*/
+    /// <summary>
+    ///   Responds to a request to create a <see cref="TopicController"/> instance, the default controller for the site.
+    /// </summary>
+    private TopicController CreateTopicController(ControllerContext context) {
+
+      /*------------------------------------------------------------------------------------------------------------------------
+      | Register
+      \-----------------------------------------------------------------------------------------------------------------------*/
+      var mvcTopicRoutingService = new MvcTopicRoutingService(
+        _topicRepository,
+        new Uri(context.HttpContext.Request.Path),
+        context.RouteData
+      );
+
+      /*------------------------------------------------------------------------------------------------------------------------
+      | Return TopicController
+      \-----------------------------------------------------------------------------------------------------------------------*/
+      return new TopicController(_topicRepository, mvcTopicRoutingService, _topicMappingService);
 
     }
 
