@@ -20,13 +20,20 @@ namespace OnTopicTest {
   public class SampleControllerActivator : IControllerActivator {
 
     /*==========================================================================================================================
+    | PRIVATE INSTANCES
+    \-------------------------------------------------------------------------------------------------------------------------*/
+    private readonly            string                          _connectionString               = null;
+
+    /*==========================================================================================================================
     | CONSTRUCTOR
     \-------------------------------------------------------------------------------------------------------------------------*/
     /// <summary>
     ///   Establishes a new instance of the <see cref="SampleControllerFactory"/>, including any shared dependencies to be used
     ///   across instances of controllers.
     /// </summary>
-    public SampleControllerActivator() {
+    public SampleControllerActivator(string connectionString) {
+
+                                _connectionString               = connectionString;
 
     }
 
