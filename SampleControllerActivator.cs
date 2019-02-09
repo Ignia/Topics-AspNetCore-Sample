@@ -4,6 +4,12 @@
 | Project       Sample OnTopic Site
 \=============================================================================================================================*/
 using System;
+using Ignia.Topics;
+using Ignia.Topics.Data.Caching;
+using Ignia.Topics.Data.Sql;
+using Ignia.Topics.Mapping;
+using Ignia.Topics.Reflection;
+using Ignia.Topics.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using OnTopicTest.Controllers;
@@ -23,6 +29,10 @@ namespace OnTopicTest {
     | PRIVATE INSTANCES
     \-------------------------------------------------------------------------------------------------------------------------*/
     private readonly            string                          _connectionString               = null;
+    private readonly            ITypeLookupService              _typeLookupService              = null;
+    private readonly            ITopicMappingService            _topicMappingService            = null;
+    private readonly            ITopicRepository                _topicRepository                = null;
+    private readonly            Topic                           _rootTopic                      = null;
 
     /*==========================================================================================================================
     | CONSTRUCTOR
@@ -33,7 +43,20 @@ namespace OnTopicTest {
     /// </summary>
     public SampleControllerActivator(string connectionString) {
 
+      /*------------------------------------------------------------------------------------------------------------------------
+      | Initialize Topic Repository
+      \-----------------------------------------------------------------------------------------------------------------------*/
                                 _connectionString               = connectionString;
+      var                       sqlTopicRepository              = new SqlTopicRepository(connectionString);
+      var                       cachedTopicRepository           = new CachedTopicRepository(sqlTopicRepository);
+
+      /*------------------------------------------------------------------------------------------------------------------------
+      | Preload repository
+      \-----------------------------------------------------------------------------------------------------------------------*/
+      _topicRepository                                          = cachedTopicRepository;
+      _typeLookupService                                        = new DynamicTopicViewModelLookupService();
+      _topicMappingService                                      = new TopicMappingService(_topicRepository, _typeLookupService);
+      _rootTopic                                                = _topicRepository.Load();
 
     }
 
