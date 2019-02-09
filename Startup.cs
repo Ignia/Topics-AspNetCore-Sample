@@ -79,7 +79,7 @@ namespace OnTopicTest {
       /*------------------------------------------------------------------------------------------------------------------------
       | Register: Controller Activator
       \-----------------------------------------------------------------------------------------------------------------------*/
-      services.AddSingleton<IControllerActivator>(new SampleControllerActivator(Configuration.GetConnectionString("OnTopic"));
+      services.AddSingleton<IControllerActivator>(new SampleControllerActivator(Configuration.GetConnectionString("OnTopic")));
 
     }
 
