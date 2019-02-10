@@ -12,6 +12,7 @@ using Ignia.Topics.Data.Sql;
 using Ignia.Topics.Mapping;
 using Ignia.Topics.Reflection;
 using Ignia.Topics.Repositories;
+using Ignia.Topics.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using OnTopicTest.Controllers;
@@ -51,6 +52,7 @@ namespace OnTopicTest {
                                 _connectionString               = connectionString;
       var                       sqlTopicRepository              = new SqlTopicRepository(connectionString);
       var                       cachedTopicRepository           = new CachedTopicRepository(sqlTopicRepository);
+      var                       topicViewModel                  = new PageTopicViewModel();
 
       /*------------------------------------------------------------------------------------------------------------------------
       | Preload repository
