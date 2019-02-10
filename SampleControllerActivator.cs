@@ -119,7 +119,7 @@ namespace OnTopicTest {
       \-----------------------------------------------------------------------------------------------------------------------*/
       var mvcTopicRoutingService = new MvcTopicRoutingService(
         _topicRepository,
-        new Uri(context.HttpContext.Request.Path),
+        new Uri($"https://{context.HttpContext.Request.Host}/{context.HttpContext.Request.Path}"),
         context.RouteData
       );
 
