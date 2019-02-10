@@ -120,7 +120,7 @@ namespace OnTopicTest {
         routes.MapRoute(
           name: "WebTopics",
           template: "Web/{*path}",
-          defaults: new { controller = "Topic", action = "Index", id = (int?)null, rootTopic = "Web" }
+          defaults: new { controller = "Topic", action = "Index", rootTopic = "Web" }
         );
 
         //Default
