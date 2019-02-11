@@ -44,6 +44,10 @@ namespace OnTopicTest {
     ///   Establishes a new instance of the <see cref="SampleControllerFactory"/>, including any shared dependencies to be used
     ///   across instances of controllers.
     /// </summary>
+    /// <remarks>
+    ///   The constructor is responsible for establishing dependencies with the singleton lifestyle so that they are available
+    ///   to all requests.
+    /// </remarks>
     public SampleControllerActivator(string connectionString) {
 
       /*------------------------------------------------------------------------------------------------------------------------
