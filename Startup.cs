@@ -111,22 +111,12 @@ namespace OnTopicTest {
       app.UseHttpsRedirection();
       app.UseStaticFiles();
       app.UseCookiePolicy();
+      app.UseMvcWithDefaultRoute();
 
       /*------------------------------------------------------------------------------------------------------------------------
       | Configure: MVC
       \-----------------------------------------------------------------------------------------------------------------------*/
-      app.UseMvc(routes => {
-
-        //OnTopic route
-        routes.MapTopicRoute("Web");
-
-        //Default
-        routes.MapRoute(
-          name: "default",
-          template: "{controller=Home}/{action=Index}/{id?}"
-        );
-
-      });
+      app.UseMvc(routes => routes.MapTopicRoute("Web"));
 
     }
 
