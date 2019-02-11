@@ -74,12 +74,6 @@ namespace OnTopicTest {
         //Set to use .NET Core 2.2
         .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
 
-        //Add Topic assembly into scope
-        .AddApplicationPart(typeof(TopicController).Assembly)
-
-        //Add controllers to scope as dependencies
-        .AddControllersAsServices()
-
         //Add OnTopic support
         .AddTopicSupport();
 
