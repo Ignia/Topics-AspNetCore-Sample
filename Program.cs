@@ -41,7 +41,8 @@ namespace OnTopicTest {
     ///   Configures a new <see cref="IWebHostBuilder"/> with the default options.
     /// </summary>
     public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-      WebHost.CreateDefaultBuilder(args)
+      WebHost
+        .CreateDefaultBuilder(args)
         .UseStartup<Startup>();
 
   } //Class
