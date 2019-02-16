@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml" lang="en" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>@(Model.MetaTitle ?? Model.Title ?? Model.Key) - GoldSim</title>
+  <meta name="keywords" content="@Model.MetaKeywords" />
+  <meta name="description" content="@Model.MetaDescription" />
+  <link rel="canonical" href="http://sample.Ignia.com/@Context.Request.Path.Value.ToLowerInvariant().TrimStart('/')" />
+  <meta name="theme-color" content="#ffffff" />
+  <environment include="Development">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+  </environment>
+  <environment exclude="Development">
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"
+      asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+      asp-fallback-test-class="sr-only"
+      asp-fallback-test-property="position"
+      asp-fallback-test-value="absolute"
+      crossorigin="anonymous"
+      integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE="
+  />
+  </environment>
+  <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+  @await Html.PartialAsync("_Breadcrumbs")
+  @RenderSection("Head", false)
+  <noscript id="DeferredStyles">
+    <link rel="stylesheet" type="text/css" href="/Shared/Styles/Vendor/FontAwesome/font-awesome.min.css" />
+    @RenderSection("DeferredStyles", false)
+  </noscript>
+</head>
+<body vocab="http://schema.org/" typeof="WebPage">
+
+  @if (IsSectionDefined("CookiesNoticeSection")) {
+    @RenderSection("CookiesNoticeSection")
+  }
+  else {
+    <partial name="_CookieConsentPartial" />
+  }
+
+  <!-- Site Header Area -->
+  @if (IsSectionDefined("HeaderSection")) {
+    @RenderSection("HeaderSection")
+  }
+  else {
+    <header id="SiteHeader" class="site header title-bar" role="banner" vocab="http://schema.org" typeof="WPHeader">
+
+      @if (IsSectionDefined("TitleBarSection")) {
+        @RenderSection("TitleBarSection")
+      }
+      else {
+        <!-- (Small Screen) Navigation Toggle -->
+        <div class="title-bar-left menu">
+          <button class="menu-icon hide-for-large" type="button" data-open="PrimaryNavigationSmallScreen"></button>
+        </div>
+        <!-- /(Small Screen) Navigation Toggle -->
+
+        <div class="title-bar-middle centered">
+          <a href="/">OnTopic Sample Site</a>
+        </div>
+
+      }
+    </header>
+
+  }
+  <!-- /Site Header Area -->
+  <!-- Site Navigation Area -->
+  @if (IsSectionDefined("NavigationSection")) {
+    @RenderSection("NavigationSection")
+  }
+  else {
+    <navigation id="SiteNavigation" class="site header nav-bar">
+    </navigation>
+
+  }
+  <!-- /Site Navigation Area -->
+
+  @if (IsSectionDefined("MainContentSection")) {
+    @RenderSection("MainContentSection")
+  }
+  else {
+
+    <!-- Main Site Content Area -->
+    <main id="MainContentArea" class="page content" role="main">
+
+      @if (IsSectionDefined("PageHeaderSection")) {
+        @RenderSection("PageHeaderSection")
+      }
+      else {
+
+        <!-- Page Header Area -->
+        <section id="PageHeaderSection">
+
+          @if (IsSectionDefined("ShortPageTitleSection")) {
+            @RenderSection("ShortPageTitleSection")
+          }
+
+          @if (IsSectionDefined("PageLevelNavigationSection")) {
+            @RenderSection("PageLevelNavigationSection")
+          }
+          else {
+            @* @Html.Action("PageLevelNavigation", "Layout") *@
+          }
+
+        </section>
+        <!-- /Page Header Area -->
+
+      }
+
+      <article itemscope itemtype="http://schema.org/WebPageElement" itemprop="mainContentOfPage" class="grid-container">
+
+        @if (IsSectionDefined("LongTitleSection")) {
+          @RenderSection("LongTitleSection")
+        }
+        else {
+          <!-- Long Title (Subtitle) -->
+          <header class="grid-x">
+            @if (!string.IsNullOrWhiteSpace(ViewBag.Context)) {
+              <h2 class="category title">@ViewBag.Context</h2>
+            }
+            <h1 class="page title long cell">
+              @(Model.ContentType.Equals("PageGroup") ? "Overview" : Model.Title)
+            </h1>
+            @if (!String.IsNullOrWhiteSpace(Model.Subtitle)) {
+              <p class="subtitle">@Model.Subtitle</p>
+            }
+            @if (IsSectionDefined("PostTitleSection")) {
+              @RenderSection("PostTitleSection")
+            }
+          </header>
+          <!-- /Long Title (Subtitle) -->
+        }
+
+        <!-- Main Page Content -->
+        @if (IsSectionDefined("PageBodySection")) {
+          @RenderSection("PageBodySection")
+        }
+        else {
+          <div class="grid-container">
+            <div class="grid-x">
+              @RenderBody()
+            </div>
+          </div>
+        }
+        <!-- /Main Page Content -->
+
+      </article>
+    </main>
+    <!-- /Main Site Content Area -->
+  }
+
+  <environment include="Development">
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+  </environment>
+  <environment exclude="Development">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+            asp-fallback-test="window.jQuery"
+            crossorigin="anonymous"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+    </script>
+  </environment>
+
+  <script>
+    var loadDeferredStyles = function () {
+      var addStylesNode = document.getElementById("DeferredStyles");
+      var replacement = document.createElement("div");
+      replacement.innerHTML = addStylesNode.textContent;
+      document.body.appendChild(replacement)
+      addStylesNode.parentElement.removeChild(addStylesNode);
+    };
+    var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+      webkitRequestAnimationFrame || msRequestAnimationFrame;
+    if (raf) raf(function () { window.setTimeout(loadDeferredStyles, 0); });
+    else window.addEventListener('load', loadDeferredStyles);
+  </script>
+
+  <script src="~/js/site.js" asp-append-version="true" async defer></script>
+  @RenderSection("Scripts", false)
+
+</body>
+</html>
