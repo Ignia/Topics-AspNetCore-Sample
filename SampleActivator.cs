@@ -6,6 +6,7 @@
 using System;
 using Ignia.Topics;
 using Ignia.Topics.AspNetCore.Mvc;
+using Ignia.Topics.AspNetCore.Mvc.Components;
 using Ignia.Topics.AspNetCore.Mvc.Controllers;
 using Ignia.Topics.Data.Caching;
 using Ignia.Topics.Data.Sql;
@@ -39,6 +40,11 @@ namespace OnTopicTest {
     private readonly            Topic                           _rootTopic                      = null;
 
     /*==========================================================================================================================
+    | HIERARCHICAL TOPIC MAPPING SERVICE
+    \-------------------------------------------------------------------------------------------------------------------------*/
+    private readonly IHierarchicalTopicMappingService<NavigationTopicViewModel> _hierarchicalMappingService = null;
+
+    /*==========================================================================================================================
     | CONSTRUCTOR
     \-------------------------------------------------------------------------------------------------------------------------*/
     /// <summary>
@@ -66,6 +72,16 @@ namespace OnTopicTest {
       _typeLookupService                                        = new DynamicTopicViewModelLookupService();
       _topicMappingService                                      = new TopicMappingService(_topicRepository, _typeLookupService);
       _rootTopic                                                = _topicRepository.Load();
+
+      /*------------------------------------------------------------------------------------------------------------------------
+      | Establish hierarchical topic mapping service
+      \-----------------------------------------------------------------------------------------------------------------------*/
+      _hierarchicalMappingService = new CachedHierarchicalTopicMappingService<NavigationTopicViewModel>(
+        new HierarchicalTopicMappingService<NavigationTopicViewModel>(
+          _topicRepository,
+          _topicMappingService
+        )
+      );
 
     }
 
@@ -103,6 +119,21 @@ namespace OnTopicTest {
     /// </summary>
     /// <returns>A concrete instance of an <see cref="IController"/>.</returns>
     public object Create(ViewComponentContext context) {
+
+      /*------------------------------------------------------------------------------------------------------------------------
+      | Determine view component type
+      \-----------------------------------------------------------------------------------------------------------------------*/
+      Type type = context.ViewComponentDescriptor.TypeInfo.AsType();
+
+      /*------------------------------------------------------------------------------------------------------------------------
+      | Configure and return appropriate view component
+      \-----------------------------------------------------------------------------------------------------------------------*/
+      if (type == typeof(MenuViewComponent)) {
+        return CreateMenuViewComponent(context);
+      }
+      else {
+        throw new Exception($"Unknown view component {type.Name}");
+      }
 
     }
 
@@ -142,6 +173,30 @@ namespace OnTopicTest {
       | Return TopicController
       \-----------------------------------------------------------------------------------------------------------------------*/
       return new TopicController(_topicRepository, mvcTopicRoutingService, _topicMappingService);
+
+    }
+
+    /*==========================================================================================================================
+    | METHOD: CREATE MENU VIEW COMPONENT
+    \-------------------------------------------------------------------------------------------------------------------------*/
+    /// <summary>
+    ///   Responds to a request to create a <see cref="MenuViewComponent"/> instance.
+    /// </summary>
+    private MenuViewComponent CreateMenuViewComponent(ViewComponentContext context) {
+
+      /*------------------------------------------------------------------------------------------------------------------------
+      | Register
+      \-----------------------------------------------------------------------------------------------------------------------*/
+      var mvcTopicRoutingService = new MvcTopicRoutingService(
+        _topicRepository,
+        new Uri($"https://{context.ViewContext.HttpContext.Request.Host}/{context.ViewContext.HttpContext.Request.Path}"),
+        context.ViewContext.RouteData
+      );
+
+      /*------------------------------------------------------------------------------------------------------------------------
+      | Return MenuViewComponent
+      \-----------------------------------------------------------------------------------------------------------------------*/
+      return new MenuViewComponent(mvcTopicRoutingService, _hierarchicalMappingService);
 
     }
 
