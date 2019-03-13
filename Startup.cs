@@ -17,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Ignia.Topics.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Ignia.Topics.AspNetCore.Mvc.Controllers;
+using Microsoft.AspNetCore.Mvc.ViewComponents;
 
 namespace OnTopicTest {
 
@@ -78,9 +79,12 @@ namespace OnTopicTest {
         .AddTopicSupport();
 
       /*------------------------------------------------------------------------------------------------------------------------
-      | Register: Controller Activator
+      | Register: Activators
       \-----------------------------------------------------------------------------------------------------------------------*/
-      services.AddSingleton<IControllerActivator>(new SampleControllerActivator(Configuration.GetConnectionString("OnTopic")));
+      var activator = new SampleActivator(Configuration.GetConnectionString("OnTopic"));
+
+      services.AddSingleton<IControllerActivator>(activator);
+      services.AddSingleton<IViewComponentActivator>(activator);
 
     }
 
