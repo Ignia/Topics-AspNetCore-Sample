@@ -15,18 +15,19 @@ using Ignia.Topics.Repositories;
 using Ignia.Topics.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.AspNetCore.Mvc.ViewComponents;
 using OnTopicTest.Controllers;
 
 namespace OnTopicTest {
 
   /*============================================================================================================================
-  | CLASS: CONTROLLER ACTIVATOR
+  | CLASS: SAMPLE ACTIVATOR
   \---------------------------------------------------------------------------------------------------------------------------*/
   /// <summary>
   ///   Responsible for creating instances of factories in response to web requests. Represents the Composition Root for
   ///   Dependency Injection.
   /// </summary>
-  public class SampleControllerActivator : IControllerActivator {
+  public class SampleActivator : IControllerActivator, IViewComponentActivator {
 
     /*==========================================================================================================================
     | PRIVATE INSTANCES
@@ -48,7 +49,7 @@ namespace OnTopicTest {
     ///   The constructor is responsible for establishing dependencies with the singleton lifestyle so that they are available
     ///   to all requests.
     /// </remarks>
-    public SampleControllerActivator(string connectionString) {
+    public SampleActivator(string connectionString) {
 
       /*------------------------------------------------------------------------------------------------------------------------
       | Initialize Topic Repository
@@ -97,6 +98,14 @@ namespace OnTopicTest {
 
     }
 
+    /// <summary>
+    ///   Registers dependencies, and injects them into new instances of view components in response to each request.
+    /// </summary>
+    /// <returns>A concrete instance of an <see cref="IController"/>.</returns>
+    public object Create(ViewComponentContext context) {
+
+    }
+
     /*==========================================================================================================================
     | METHOD: CREATE HOME CONTROLLER
     \-------------------------------------------------------------------------------------------------------------------------*/
@@ -142,9 +151,12 @@ namespace OnTopicTest {
     /// <summary>
     ///   Responds to a request to release resources associated with a particular controller.
     /// </summary>
-    public void Release(ControllerContext context, object controller) {
+    public void Release(ControllerContext context, object controller) { }
 
-    }
+    /// <summary>
+    ///   Responds to a request to release resources associated with a particular view component.
+    /// </summary>
+    public void Release(ViewComponentContext context, object viewComponent) { }
 
   } //Class
 } //Namespace
