@@ -21,10 +21,10 @@
       asp-fallback-test-value="absolute"
       crossorigin="anonymous"
       integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE="
-  />
+    />
   </environment>
   <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-  @await Html.PartialAsync("_Breadcrumbs")
+  <partial name="_Breadcrumbs" />
   @RenderSection("Head", false)
   <noscript id="DeferredStyles">
     <link rel="stylesheet" type="text/css" href="/Shared/Styles/Vendor/FontAwesome/font-awesome.min.css" />
