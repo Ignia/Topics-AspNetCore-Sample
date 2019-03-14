@@ -17,6 +17,7 @@ using Ignia.Topics.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
+using OnTopicTest.Components;
 using OnTopicTest.Controllers;
 
 namespace OnTopicTest {

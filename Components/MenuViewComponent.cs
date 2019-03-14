@@ -10,8 +10,10 @@ using Ignia.Topics.Repositories;
 using Ignia.Topics.Models;
 using Ignia.Topics.AspNetCore.Mvc.Models;
 using Ignia.Topics.ViewModels;
+using Ignia.Topics.AspNetCore.Mvc.Components;
+using Ignia.Topics;
 
-namespace Ignia.Topics.AspNetCore.Mvc.Components {
+namespace OnTopicTest.Components {
 
   /*============================================================================================================================
   | CLASS: MENU VIEW COMPONENT
