@@ -132,6 +132,9 @@ namespace OnTopicTest {
       if (type == typeof(MenuViewComponent)) {
         return CreateMenuViewComponent(context);
       }
+      else if (type == typeof(PageLevelNavigationViewComponent)) {
+        return CreatePageLevelNavigationViewComponent(context);
+      }
       else {
         throw new Exception($"Unknown view component {type.Name}");
       }
@@ -198,6 +201,30 @@ namespace OnTopicTest {
       | Return MenuViewComponent
       \-----------------------------------------------------------------------------------------------------------------------*/
       return new MenuViewComponent(mvcTopicRoutingService, _hierarchicalMappingService);
+
+    }
+
+    /*==========================================================================================================================
+    | METHOD: CREATE PAGE-LEVEL NAVIGATION VIEW COMPONENT
+    \-------------------------------------------------------------------------------------------------------------------------*/
+    /// <summary>
+    ///   Responds to a request to create a <see cref="MenuViewComponent"/> instance.
+    /// </summary>
+    private PageLevelNavigationViewComponent CreatePageLevelNavigationViewComponent(ViewComponentContext context) {
+
+      /*------------------------------------------------------------------------------------------------------------------------
+      | Register
+      \-----------------------------------------------------------------------------------------------------------------------*/
+      var mvcTopicRoutingService = new MvcTopicRoutingService(
+        _topicRepository,
+        new Uri($"https://{context.ViewContext.HttpContext.Request.Host}/{context.ViewContext.HttpContext.Request.Path}"),
+        context.ViewContext.RouteData
+      );
+
+      /*------------------------------------------------------------------------------------------------------------------------
+      | Return MenuViewComponent
+      \-----------------------------------------------------------------------------------------------------------------------*/
+      return new PageLevelNavigationViewComponent(mvcTopicRoutingService, _hierarchicalMappingService);
 
     }
 
