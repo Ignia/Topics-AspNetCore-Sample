@@ -113,6 +113,7 @@ namespace OnTopicTest {
       app.UseStaticFiles();
       app.UseCookiePolicy();
       app.UseRouting();
+      app.UseCors("default");
 
       /*------------------------------------------------------------------------------------------------------------------------
       | Configure: MVC
