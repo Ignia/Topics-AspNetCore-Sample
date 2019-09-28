@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace OnTopicTest {
@@ -31,7 +32,7 @@ namespace OnTopicTest {
     ///   Responsible for bootstrapping the web application.
     /// </summary>
     public static void Main(string[] args) {
-      CreateWebHostBuilder(args).Build().Run();
+      CreateHostBuilder(args).Build().Run();
     }
 
     /*==========================================================================================================================
@@ -40,10 +41,12 @@ namespace OnTopicTest {
     /// <summary>
     ///   Configures a new <see cref="IWebHostBuilder"/> with the default options.
     /// </summary>
-    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-      WebHost
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+      Host
         .CreateDefaultBuilder(args)
-        .UseStartup<Startup>();
+        .ConfigureWebHostDefaults(webBuilder => {
+          webBuilder.UseStartup<Startup>();
+        });
 
   } //Class
 } //Namespace
