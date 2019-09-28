@@ -116,7 +116,7 @@ namespace OnTopicTest {
       app.UseHttpsRedirection();
       app.UseStaticFiles();
       app.UseCookiePolicy();
-      app.UseMvcWithDefaultRoute();
+      app.UseRouting();
 
       /*------------------------------------------------------------------------------------------------------------------------
       | Configure: MVC
