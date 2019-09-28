@@ -4,9 +4,6 @@
 | Project       Sample OnTopic Site
 \=============================================================================================================================*/
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -14,10 +11,10 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Ignia.Topics.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc.Controllers;
-using Ignia.Topics.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
+using Ignia.Topics.AspNetCore.Mvc;
 
 namespace OnTopicTest {
 
@@ -70,10 +67,7 @@ namespace OnTopicTest {
       /*------------------------------------------------------------------------------------------------------------------------
       | Configure: MVC
       \-----------------------------------------------------------------------------------------------------------------------*/
-      services.AddMvc()
-
-        //Set to use .NET Core 2.2
-        .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+      services.AddControllersWithViews()
 
         //Add OnTopic support
         .AddTopicSupport();
@@ -95,7 +89,7 @@ namespace OnTopicTest {
     ///   Provides configuration the application. This method is called by the runtime to bootstrap the application
     ///   configuration, including the HTTP pipeline.
     /// </summary>
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
 
       /*------------------------------------------------------------------------------------------------------------------------
       | Configure: Error Pages
@@ -109,18 +103,22 @@ namespace OnTopicTest {
         app.UseHsts();
       }
 
-      /*------------------------------------------------------------------------------------------------------------------------
+     /*------------------------------------------------------------------------------------------------------------------------
      | Configure: Server defaults
      \-----------------------------------------------------------------------------------------------------------------------*/
       app.UseHttpsRedirection();
       app.UseStaticFiles();
       app.UseCookiePolicy();
-      app.UseMvcWithDefaultRoute();
+      app.UseRouting();
+      app.UseCors("default");
 
       /*------------------------------------------------------------------------------------------------------------------------
       | Configure: MVC
       \-----------------------------------------------------------------------------------------------------------------------*/
-      app.UseMvc(routes => routes.MapTopicRoute("Web"));
+      app.UseEndpoints(endpoints => {
+        endpoints.MapControllers();
+        endpoints.MapTopicRoute("Web");
+      });
 
     }
 

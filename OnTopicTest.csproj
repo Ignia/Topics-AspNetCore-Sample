@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <UserSecretsId>f6d2acaf-e4dd-4d63-a2ff-5f0474024b17</UserSecretsId>
   </PropertyGroup>
@@ -12,9 +12,6 @@
     <PackageReference Include="Ignia.Topics.Data.Caching" Version="3.8.0-alpha.267" />
     <PackageReference Include="Ignia.Topics.Data.Sql" Version="3.8.0-alpha.267" />
     <PackageReference Include="Ignia.Topics.ViewModels" Version="3.8.0-alpha.267" />
-    <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
