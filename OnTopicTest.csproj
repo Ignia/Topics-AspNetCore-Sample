@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ignia.Topics" Version="3.8.0-dotnetstandard0001" />
-    <PackageReference Include="Ignia.Topics.AspNetCore.Mvc" Version="3.8.0-dotnetstandard0001" />
-    <PackageReference Include="Ignia.Topics.Data.Caching" Version="3.8.0-dotnetstandard0001" />
-    <PackageReference Include="Ignia.Topics.Data.Sql" Version="3.8.0-dotnetstandard0001" />
-    <PackageReference Include="Ignia.Topics.ViewModels" Version="3.8.0-dotnetstandard0001" />
+    <PackageReference Include="Ignia.Topics" Version="3.8.0-alpha.267" />
+    <PackageReference Include="Ignia.Topics.AspNetCore.Mvc" Version="3.8.0-alpha.267" />
+    <PackageReference Include="Ignia.Topics.Data.Caching" Version="3.8.0-alpha.267" />
+    <PackageReference Include="Ignia.Topics.Data.Sql" Version="3.8.0-alpha.267" />
+    <PackageReference Include="Ignia.Topics.ViewModels" Version="3.8.0-alpha.267" />
   </ItemGroup>
 
   <ItemGroup>
