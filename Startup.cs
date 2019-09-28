@@ -71,7 +71,7 @@ namespace OnTopicTest {
       /*------------------------------------------------------------------------------------------------------------------------
       | Configure: MVC
       \-----------------------------------------------------------------------------------------------------------------------*/
-      services.AddMvc()
+      services.AddMvc(options => options.EnableEndpointRouting = false)
 
         //Set to use .NET Core 2.2
         .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
